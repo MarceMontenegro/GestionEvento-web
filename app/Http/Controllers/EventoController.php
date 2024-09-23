@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Evento;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EventoController extends Controller
 {
@@ -49,10 +50,10 @@ class EventoController extends Controller
         'ubicacion' => $request->ubicacion,
         'latitud' => $request->latitud,
         'longitud' => $request->longitud,
-        'user_id' => auth()->id(),
+        'user_id' => Auth::user()->id,
     ]);
 
-    return redirect()->route('eventos.create')->with('success', 'Evento creado exitosamente.');
+    return redirect()->route('welcome')->with('success', 'Evento creado exitosamente.');
 
     }
 
@@ -69,7 +70,7 @@ class EventoController extends Controller
      */
     public function edit(Evento $evento)
     {
-        //
+        return view('eventos.edit');
     }
 
     /**

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\aceptan;
+use App\Models\Evento;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AceptanController extends Controller
 {
@@ -12,7 +14,10 @@ class AceptanController extends Controller
      */
     public function index()
     {
-        //
+        $evento_user = Auth::user()->id;
+        $evento = Evento::where('ID_eventos', $evento_user)->first();
+        return view('eventos.admin', compact('evento'));
+
     }
 
     /**

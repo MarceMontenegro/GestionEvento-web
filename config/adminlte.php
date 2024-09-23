@@ -257,7 +257,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => '',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -322,17 +322,23 @@ return [
             // 'label' => 4,
             // 'label_color' => 'success',
         ],
+        [
+            'text' => ' Eventos disponibles',
+            'url' => 'admin/settings',
+            'icon' => 'fa fa-address-book',
+        ],
+        [
+            'text' => ' Mis Eventos',
+            'url' => 'admin',
+            'icon' => 'fa fa-address-book',
+        ],
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
             'url' => 'profile',
             'icon' => 'fas fa-fw fa-user',
         ],
-        // [
-        //     'text' => 'change_password',
-        //     'url' => 'admin/settings',
-        //     'icon' => 'fas fa-fw fa-lock',
-        // ],
+        
         // [
         //     'text' => 'multilevel',
         //     'icon' => 'fas fa-fw fa-share',
