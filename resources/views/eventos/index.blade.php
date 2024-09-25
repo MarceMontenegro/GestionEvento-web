@@ -13,7 +13,8 @@
 
     <div class="container">
         
-        <h1>Mis Eventos</h1>
+        <h1>Mis eventos</h1>
+        <br>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -32,6 +33,8 @@
                         <td>{{ $evento->fecha_inicio }}</td>
                         <td>{{ $evento->ubicacion }}</td>
                         <td>
+                            {{-- Enlace para invitar al evento --}}
+                            <a href="{{ route('eventos.edit', $evento->ID_eventos) }}" class="btn btn-primary" >Invitar</a>
                             {{-- Enlace para editar el evento --}}
                             <a href="{{ route('eventos.edit', $evento->ID_eventos) }}" class="btn btn-warning" >Editar</a>
 

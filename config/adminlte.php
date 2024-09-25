@@ -316,6 +316,13 @@ return [
         //     'can' => 'manage-blog',
         // ],
         [
+            'text' => 'inicio',
+            'url' => '/',
+            'icon' => 'fa fa-home',
+            // 'label' => 4,
+            // 'label_color' => 'success',
+        ],
+        [
             'text' => 'Crear evento',
             'url' => 'crear-evento',
             'icon' => 'fa fa-plus-circle',
