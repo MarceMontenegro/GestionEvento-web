@@ -22,8 +22,11 @@ Route::middleware('auth')->group(function () {
 //nombre de ruta, nombre de controlador, nombre de funcion y ubicacion del metodo
 Route::get('/crear-evento',[EventoController::class, 'create'])->name('eventos.create');
 Route::post('/crear-evento/store',[EventoController::class, 'store'])->name('eventos.store');
-Route::get('/admin',[AceptanController::class, 'index'])->name('eventos.admin');
-Route::get('/admin/configuracion',[EventoController::class, 'edit'])->name('eventos.edit');
+Route::get('/index',[EventoController::class, 'index'])->name('eventos.index');
+Route::get('/index/configuracion/{ID_eventos}',[EventoController::class, 'edit'])->name('eventos.edit');
+Route::get('/index/update/{ID_eventos}',[EventoController::class, 'update'])->name('eventos.update');
+Route::delete('/index/delete/{ID_eventos}',[EventoController::class, 'destroy'])->name('eventos.destroy');
+
 });
 
 require __DIR__.'/auth.php';

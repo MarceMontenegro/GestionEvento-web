@@ -13,7 +13,10 @@ class EventoController extends Controller
      */
     public function index()
     {
-        //
+        $evento_user = Auth::user()->id;
+        $eventos = Evento::where('user_id', $evento_user)->get();
+        return view('eventos.index', compact('eventos'));
+
     }
 
     /**
@@ -68,24 +71,38 @@ class EventoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Evento $evento)
+    public function edit($ID_eventos)
     {
-        return view('eventos.edit');
+        $evento = Evento::find($ID_eventos);
+    
+
+    
+        return view('eventos.edit', compact('evento'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Evento $evento)
+    public function update(Request $request, $ID_eventos)
     {
-        //
+        $evento = Evento::find($ID_eventos);
+
+    
+        $evento->update($request->all());
+    
+        return redirect()->route('eventos.index')->with('success', 'Evento actualizado exitosamente');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Evento $evento)
+    public function destroy($ID_eventos)
     {
-        //
+        // Buscar el evento por ID
+        $evento = Evento::destroy($ID_eventos);
+        
+
+    // Redirigir a la lista de eventos con un mensaje de éxito
+    return redirect()->route('eventos.index')->with('success', 'Evento eliminado correctamente.');
     }
 }

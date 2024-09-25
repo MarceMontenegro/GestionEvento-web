@@ -1,4 +1,4 @@
-@extends('welcome')
+@extends('adminlte::page')
 
 
 
@@ -18,7 +18,7 @@
         </div>
             <div class="card-header {{ config('adminlte.classes_auth_header', '') }}">
                 <h3 class="card-title float-none text-center">
-                    <b>Registro del nuevo evento</b>
+                    <b>Mis eventos</b>
                 </h3>
             </div>
     

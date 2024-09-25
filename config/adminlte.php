@@ -306,15 +306,15 @@ return [
         ],
 
         // Sidebar items:
-        [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
-        ],
-        [
-            'text' => 'blog',
-            'url' => 'admin/blog',
-            'can' => 'manage-blog',
-        ],
+        // [
+        //     'type' => 'sidebar-menu-search',
+        //     'text' => 'search',
+        // ],
+        // [
+        //     'text' => 'blog',
+        //     'url' => 'admin/blog',
+        //     'can' => 'manage-blog',
+        // ],
         [
             'text' => 'Crear evento',
             'url' => 'crear-evento',
@@ -323,13 +323,13 @@ return [
             // 'label_color' => 'success',
         ],
         [
-            'text' => ' Eventos disponibles',
+            'text' => ' Invitaciones',
             'url' => 'admin/settings',
             'icon' => 'fa fa-address-book',
         ],
         [
             'text' => ' Mis Eventos',
-            'url' => 'admin',
+            'url' => 'index',
             'icon' => 'fa fa-address-book',
         ],
         ['header' => 'account_settings'],

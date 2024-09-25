@@ -14,10 +14,7 @@ class AceptanController extends Controller
      */
     public function index()
     {
-        $evento_user = Auth::user()->id;
-        $evento = Evento::where('ID_eventos', $evento_user)->first();
-        return view('eventos.admin', compact('evento'));
-
+        
     }
 
     /**
