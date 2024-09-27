@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Evento;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -105,4 +106,6 @@ class EventoController extends Controller
     // Redirigir a la lista de eventos con un mensaje de éxito
     return redirect()->route('eventos.index')->with('success', 'Evento eliminado correctamente.');
     }
+    
+
 }

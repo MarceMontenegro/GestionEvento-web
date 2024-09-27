@@ -11,38 +11,34 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('recibens', function (Blueprint $table) {
-            // Claves foráneas hacia 'users' y 'eventos'
-            $table->unsignedBigInteger('user_id');
+        Schema::create('reciben', function (Blueprint $table) {
+            $table->id();
+            
+            // Clave foránea hacia la tabla 'eventos'
             $table->unsignedBigInteger('ID_eventos');
-
-            // Definimos la clave foránea hacia 'users'
-            $table->foreign('user_id')
-                  ->references('id')
-                  ->on('users')
-                  ->onDelete('cascade')
-                  ->onUpdate('cascade');
-
-            // Definimos la clave foránea hacia 'eventos'
             $table->foreign('ID_eventos')
                   ->references('ID_eventos')
                   ->on('eventos')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
 
-            // Clave primaria compuesta
-            $table->primary(['user_id', 'ID_eventos']); 
+            // Clave foránea hacia la tabla 'users'
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                  ->references('id')
+                  ->on('users')
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
 
             $table->timestamps();
         });
     }
 
-
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('recibens');
+        Schema::dropIfExists('reciben');
     }
 };

@@ -11,29 +11,28 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('aceptans', function (Blueprint $table) {
-            // Claves foráneas hacia 'users' y 'eventos'
-            $table->unsignedBigInteger('user_id');
+        Schema::create('aceptan', function (Blueprint $table) {
+            $table->id();
+            
+            // Clave foránea hacia la tabla 'eventos'
             $table->unsignedBigInteger('ID_eventos');
-
-            // Definimos la clave foránea hacia 'users'
-            $table->foreign('user_id')
-                  ->references('id')
-                  ->on('users')
-                  ->onDelete('cascade')
-                  ->onUpdate('cascade');
-
-            // Definimos la clave foránea hacia 'eventos'
             $table->foreign('ID_eventos')
                   ->references('ID_eventos')
                   ->on('eventos')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
+                  
+            // Clave foránea hacia la tabla 'users'
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                  ->references('id')
+                  ->on('users')
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
+            
+            // Asistencia del usuario (booleano o tinyInteger)
+            $table->tinyInteger('asistencia')->default(0); // 0 = No asistirá, 1 = Asistirá
 
-            // Clave primaria compuesta
-            $table->primary(['user_id', 'ID_eventos']); 
-
-            $table->string('asistencia', 20);
             $table->timestamps();
         });
     }
@@ -41,8 +40,8 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('aceptans');
+        Schema::dropIfExists('aceptan');
     }
 };

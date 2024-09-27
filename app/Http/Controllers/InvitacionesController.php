@@ -2,64 +2,70 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Evento;
+use App\Models\Invitacion;
 use App\Models\invitaciones;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class InvitacionesController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Mostrar la vista para invitar usuarios a un evento.
      */
-    public function index()
+    public function invitar($ID_eventos)
     {
-        //
+        $evento = Evento::find($ID_eventos);
+        // Obtener los usuarios que no son el actual para invitar
+        $usuarios = User::where('id', '!=', Auth::user()->id)->get();
+
+        return view('invitaciones.invitar', compact('evento', 'usuarios'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Enviar las invitaciones a los usuarios seleccionados.
      */
-    public function create()
+    public function enviarInvitacion(Request $request, $ID_eventos)
     {
-        //
+        $evento = Evento::find($ID_eventos);
+        $usuarios_invitados = $request->input('usuarios');
+
+        foreach ($usuarios_invitados as $usuario_id) {
+            invitaciones::create([
+                'ID_eventos' => $ID_eventos,
+                'user_id' => $usuario_id,
+                'fecha_envio' => now(),
+                'estado' => 0, // Pendiente
+            ]);
+        }
+
+        return redirect()->route('eventos.index')->with('success', 'Invitaciones enviadas.');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Ver las invitaciones enviadas al usuario actual.
      */
-    public function store(Request $request)
+    public function verInvitaciones()
     {
-        //
+        $invitaciones = Invitaciones::where('user_id', Auth::id())->get();
+        return view('invitaciones.index', compact('invitaciones'));
     }
 
     /**
-     * Display the specified resource.
+     * Responder a una invitación (aceptar o rechazar).
      */
-    public function show(invitaciones $invitaciones)
+    public function responderInvitacion(Request $request, $ID_invitaciones)
     {
-        //
-    }
+        $invitacion = Invitaciones::find($ID_invitaciones);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(invitaciones $invitaciones)
-    {
-        //
-    }
+        if ($invitacion) {
+            $invitacion->update([
+                'fecha_respuesta' => now(),
+                'estado' => $request->input('estado'),  // 1 = Aceptada, 2 = Rechazada
+            ]);
+        }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, invitaciones $invitaciones)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(invitaciones $invitaciones)
-    {
-        //
+        return redirect()->route('invitaciones.index')->with('success', 'Invitación respondida.');
     }
 }
