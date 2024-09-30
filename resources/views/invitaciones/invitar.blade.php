@@ -7,11 +7,26 @@
         @csrf
         <div class="form-group">
             <label for="usuarios">Selecciona usuarios para invitar:</label>
-            <select name="usuarios[]" id="usuarios" class="form-control" multiple>
-                @foreach($usuarios as $usuario)
-                    <option value="{{ $usuario->id }}">{{ $usuario->name }}</option>
-                @endforeach
-            </select>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Seleccionar</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($usuarios as $usuario)
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="usuarios[]" value="{{ $usuario->id }}">
+                        </td>
+                        <td>{{ $usuario->name }}</td>
+                        <td>{{ $usuario->email }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
         <button type="submit" class="btn btn-primary">Enviar invitaciones</button>
     </form>

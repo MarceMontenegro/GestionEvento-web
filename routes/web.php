@@ -31,6 +31,8 @@ Route::get('eventos/{ID_eventos}/invitar', [InvitacionesController::class, 'invi
 Route::post('eventos/{ID_eventos}/enviar', [InvitacionesController::class, 'enviarInvitacion'])->name('invitaciones.enviar');
 Route::get('invitaciones', [InvitacionesController::class, 'verInvitaciones'])->name('invitaciones.index');
 Route::post('invitaciones/{ID_invitaciones}/responder', [InvitacionesController::class, 'responderInvitacion'])->name('invitaciones.responder');
+Route::get('/eventos/{ID_eventos}', [EventoController::class, 'show'])->name('eventos.show');
+
 });
 
 require __DIR__.'/auth.php';

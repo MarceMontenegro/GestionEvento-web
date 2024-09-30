@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Evento;
+use App\Models\Invitaciones;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,9 +16,27 @@ class EventoController extends Controller
     public function index()
     {
         $evento_user = Auth::user()->id;
-        $eventos = Evento::where('user_id', $evento_user)->get();
-        return view('eventos.index', compact('eventos'));
 
+        // Obtener los eventos del usuario
+        $eventos = Evento::where('user_id', $evento_user)->get();
+
+        // Para cada evento, obtenemos los participantes clasificados por su estado
+        foreach ($eventos as $evento) {
+            $evento->participantes_aceptados = Invitaciones::where('ID_eventos', $evento->ID_eventos)
+                ->where('estado', 1) // Estado 1 = aceptado
+                ->with('usuario')
+                ->get();
+            $evento->participantes_rechazados = Invitaciones::where('ID_eventos', $evento->ID_eventos)
+                ->where('estado', 2) // Estado 2 = rechazado
+                ->with('usuario')
+                ->get();
+            $evento->participantes_pendientes = Invitaciones::where('ID_eventos', $evento->ID_eventos)
+                ->where('estado', 0) // Estado 0 = pendiente
+                ->with('usuario')
+                ->get();
+        }
+
+        return view('eventos.index', compact('eventos'));
     }
 
     /**
@@ -64,10 +83,15 @@ class EventoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Evento $evento)
+    public function show($ID_eventos)
     {
-        //
+    // Buscar el evento por su ID
+    $evento = Evento::findOrFail($ID_eventos);
+
+    // Retornar la vista con los detalles del evento
+    return view('eventos.show', compact('evento'));
     }
+
 
     /**
      * Show the form for editing the specified resource.

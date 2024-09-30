@@ -34,6 +34,7 @@
                             <button name="estado" value="2" class="btn btn-danger">Rechazar</button>
                         </form>
                     @endif
+                    <a href="{{ route('eventos.show', $invitacion->evento->ID_eventos) }}" class="btn btn-primary">Ver evento</a>
                 </td>
             </tr>
             @endforeach

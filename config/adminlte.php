@@ -331,7 +331,7 @@ return [
         ],
         [
             'text' => ' Invitaciones',
-            'url' => 'admin/settings',
+            'url' => 'invitaciones',
             'icon' => 'fa fa-address-book',
         ],
         [
