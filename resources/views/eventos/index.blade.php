@@ -35,7 +35,7 @@
                         <td>{{ $evento->fecha_inicio }}</td>
                         <td>{{ $evento->ubicacion }}</td>
                         <td>
-                            <a href="{{ route('eventos.edit', $evento->ID_eventos) }}" class="btn btn-primary" >Invitar</a>
+                            <a href="{{ route('invitaciones.invitar', $evento->ID_eventos) }}" class="btn btn-primary" >Invitar</a>
                             <a href="{{ route('eventos.edit', $evento->ID_eventos) }}" class="btn btn-warning" >Editar</a>
 
                             <form action="{{ route('eventos.destroy', $evento->ID_eventos) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este evento?');">
