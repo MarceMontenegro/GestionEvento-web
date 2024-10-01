@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('eventos', function (Blueprint $table) {
             $table->id('ID_eventos');  // Primary Key
             $table->date('fecha_inicio');
-            $table->string('nombre_evento', 20);
-            $table->string('descripcion', 20);
+            $table->string('nombre_evento', 60);
+            $table->string('descripcion', 100);
             $table->string('ubicacion');
             $table->decimal('latitud', 10, 8); // 10 dígitos en total, 8 decimales
             $table->decimal('longitud', 11, 8); // 11 dígitos en total, 8 decimales
