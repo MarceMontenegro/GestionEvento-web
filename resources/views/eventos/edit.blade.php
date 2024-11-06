@@ -56,8 +56,11 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-5">
-                                    @method('GET') {{-- Método GET para la actualización --}}
-                                    <button type="submit" class="btn-lg btn-primary btn-block" >Actualizar evento</button> {{-- Cambiar el texto del botón --}}
+                                    <a href="{{ url()->previous() }}" class="btn-lg btn-secondary btn-block">Cancelar</a>
+                                </div>
+                                @method('GET')
+                                <div class="col-md-5 offset-md-2">
+                                    <button type="submit" class="btn-lg btn-primary btn-block">Actualizar evento</button>
                                 </div>
                             </div>
                         </div>
@@ -76,7 +79,14 @@
 
     </div>
 @endsection
-
+@section('footer')
+    <footer class="main-footer">
+        <strong>&copy; 2024 Gestión de eventos</strong>
+        <div class="float-right d-none d-sm-inline-block">
+            <b>Version</b> 1.0.0
+        </div>
+    </footer>
+@stop
 @section('adminlte_js')
     @stack('js')
     @yield('js')

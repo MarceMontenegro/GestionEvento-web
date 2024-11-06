@@ -28,7 +28,18 @@
                 </tbody>
             </table>
         </div>
-        <button type="submit" class="btn btn-primary">Enviar invitaciones</button>
+        <div class="d-flex justify-content-between">
+            <a href={{url()->previous()}} class="btn btn-secondary">Volver atrás</a>
+            <button type="submit" class="btn btn-primary">Enviar invitaciones</button>
+    </div>
     </form>
 </div>
 @endsection
+@section('footer')
+    <footer class="main-footer">
+        <strong>&copy; 2024 Gestión de eventos</strong>
+        <div class="float-right d-none d-sm-inline-block">
+            <b>Version</b> 1.0.0
+        </div>
+    </footer>
+@stop

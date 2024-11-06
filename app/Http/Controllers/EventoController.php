@@ -56,15 +56,22 @@ class EventoController extends Controller
         // $datos = $request->all();
         // return response()->json($datos);
        // Validar la solicitud
-    $request->validate([
-        'nombre_evento' => 'required|string',
-        'descripcion' => 'required|string',
-        'fecha_inicio' => 'required|date',
-        'ubicacion' => 'required|string',
-        'latitud' => 'required|numeric',
-        'longitud' => 'required|numeric',
+       $request->validate([
+        'nombre_evento' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/', 'max:255'],  // Solo permite letras y espacios
+        'descripcion' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/', 'max:500'],
+        'fecha_inicio' => ['required', 'date'],
+        'ubicacion' => ['required', 'string'],
+        'latitud' => ['required', 'numeric'],
+        'longitud' => ['required', 'numeric'],
+    ], 
+    [
+        'nombre_evento.regex' => 'Formato no válido. El nombre solo debe contener letras y espacios.',
+        'descripcion.regex' => 'Formato no válido. la descripcion solo debe contener letras y espacios.',
+        'nombre_evento.regex' => 'Formato no válido. El nombre solo debe contener letras y espacios.',
+        'nombre_evento.regex' => 'Formato no válido. El nombre solo debe contener letras y espacios.',
+        'nombre_evento.regex' => 'Formato no válido. El nombre solo debe contener letras y espacios.',
     ]);
-
+    
     // Crear un nuevo evento
     Evento::create([
         'nombre_evento' => $request->nombre_evento,
@@ -111,7 +118,15 @@ class EventoController extends Controller
     public function update(Request $request, $ID_eventos)
     {
         $evento = Evento::find($ID_eventos);
-
+        
+        $request->validate([
+            'nombre_evento' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/', 'max:255'],  // Solo permite letras y espacios
+            'descripcion' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/', 'max:500'],
+            'fecha_inicio' => ['required', 'date'],
+            'ubicacion' => ['required', 'string'],
+            'latitud' => ['required', 'numeric'],
+            'longitud' => ['required', 'numeric'],
+        ]);
     
         $evento->update($request->all());
     
@@ -124,7 +139,7 @@ class EventoController extends Controller
     public function destroy($ID_eventos)
     {
         // Buscar el evento por ID
-        $evento = Evento::destroy($ID_eventos);
+        Evento::destroy($ID_eventos);
         
 
     // Redirigir a la lista de eventos con un mensaje de éxito

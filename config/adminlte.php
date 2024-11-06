@@ -304,7 +304,36 @@ return [
             'type' => 'fullscreen-widget',
             'topnav_right' => true,
         ],
-
+        [
+            'text' => 'inicio',
+            'url' => '/',
+            'icon' => 'fa fa-home',
+            // 'label' => 4,
+            // 'label_color' => 'success',
+        ],
+        [
+            'text' => 'Acciones principales',
+            'icon' => 'fas fa-fw fa-share',
+            'submenu' => [
+                [
+                    'text' => 'Crear evento',
+                    'url' => 'crear-evento',
+                    'icon' => 'fa fa-plus-circle',
+                ],
+                
+                [
+                    'text' => ' Invitaciones',
+                    'url' => 'invitaciones',
+                    'icon' => 'fa fa-address-book',
+                ],
+                [
+                    'text' => ' Mis Eventos',
+                    'url' => 'index',
+                    'icon' => 'fa fa-address-book',
+                    
+                ],
+            ],
+        ],
         // Sidebar items:
         // [
         //     'type' => 'sidebar-menu-search',
@@ -315,30 +344,24 @@ return [
         //     'url' => 'admin/blog',
         //     'can' => 'manage-blog',
         // ],
-        [
-            'text' => 'inicio',
-            'url' => '/',
-            'icon' => 'fa fa-home',
-            // 'label' => 4,
-            // 'label_color' => 'success',
-        ],
-        [
-            'text' => 'Crear evento',
-            'url' => 'crear-evento',
-            'icon' => 'fa fa-plus-circle',
-            // 'label' => 4,
-            // 'label_color' => 'success',
-        ],
-        [
-            'text' => ' Invitaciones',
-            'url' => 'invitaciones',
-            'icon' => 'fa fa-address-book',
-        ],
-        [
-            'text' => ' Mis Eventos',
-            'url' => 'index',
-            'icon' => 'fa fa-address-book',
-        ],
+       
+        // [
+        //     'text' => 'Crear evento',
+        //     'url' => 'crear-evento',
+        //     'icon' => 'fa fa-plus-circle',
+        //     // 'label' => 4,
+        //     // 'label_color' => 'success',
+        // ],
+        // [
+        //     'text' => ' Invitaciones',
+        //     'url' => 'invitaciones',
+        //     'icon' => 'fa fa-address-book',
+        // ],
+        // [
+        //     'text' => ' Mis Eventos',
+        //     'url' => 'index',
+        //     'icon' => 'fa fa-address-book',
+        // ],
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
@@ -346,44 +369,7 @@ return [
             'icon' => 'fas fa-fw fa-user',
         ],
         
-        // [
-        //     'text' => 'multilevel',
-        //     'icon' => 'fas fa-fw fa-share',
-        //     'submenu' => [
-        //         [
-        //             'text' => 'level_one',
-        //             'url' => '#',
-        //         ],
-        //         [
-        //             'text' => 'level_one',
-        //             'url' => '#',
-        //             'submenu' => [
-        //                 [
-        //                     'text' => 'level_two',
-        //                     'url' => '#',
-        //                 ],
-        //                 [
-        //                     'text' => 'level_two',
-        //                     'url' => '#',
-        //                     'submenu' => [
-        //                         [
-        //                             'text' => 'level_three',
-        //                             'url' => '#',
-        //                         ],
-        //                         [
-        //                             'text' => 'level_three',
-        //                             'url' => '#',
-        //                         ],
-        //                     ],
-        //                 ],
-        //             ],
-        //         ],
-        //         [
-        //             'text' => 'level_one',
-        //             'url' => '#',
-        //         ],
-        //     ],
-        // ],
+        
         // ['header' => 'labels'],
         // [
         //     'text' => 'important',
@@ -400,6 +386,7 @@ return [
         //     'icon_color' => 'cyan',
         //     'url' => '#',
         // ],
+        
     ],
 
     /*
