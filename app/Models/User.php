@@ -10,7 +10,13 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
-
+    
+    public function moderandoEventos()
+{
+    return $this->belongsToMany(Evento::class, 'evento_moderadores', 'user_id', 'evento_id')
+                ->withTimestamps();
+}
+    
     // Relación uno a muchos con eventos
     public function eventos()
     {
@@ -40,6 +46,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'rol',
     ];
 
     /**

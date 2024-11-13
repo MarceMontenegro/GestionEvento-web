@@ -332,6 +332,7 @@ return [
                     'icon' => 'fa fa-address-book',
                     
                 ],
+        
             ],
         ],
         // Sidebar items:

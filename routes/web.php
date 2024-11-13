@@ -1,6 +1,5 @@
 <?php
-
-use App\Http\Controllers\AceptanController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventoController;
 use App\Http\Controllers\InvitacionesController;
 use App\Http\Controllers\ProfileController;
@@ -32,6 +31,12 @@ Route::post('eventos/{ID_eventos}/enviar', [InvitacionesController::class, 'envi
 Route::get('invitaciones', [InvitacionesController::class, 'verInvitaciones'])->name('invitaciones.index');
 Route::post('invitaciones/{ID_invitaciones}/responder', [InvitacionesController::class, 'responderInvitacion'])->name('invitaciones.responder');
 Route::get('/eventos/{ID_eventos}', [EventoController::class, 'show'])->name('eventos.show');
+
+
+Route::get('/evento/{eventoId}/agregar-moderador', [EventoController::class, 'agregarModerador'])->name('evento.agregarModerador');
+Route::post('/evento/{eventoId}/agregar-moderador/{usuarioId}', [EventoController::class, 'asignarModerador'])->name('moderador.agregar');
+Route::get('/evento/{usuario_id}', [EventoController::class, 'eventosModerados'])->name('usuario.evento');
+
 
 });
 

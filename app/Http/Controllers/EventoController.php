@@ -34,6 +34,7 @@ class EventoController extends Controller
                 ->where('estado', 0) // Estado 0 = pendiente
                 ->with('usuario')
                 ->get();
+            
         }
 
         return view('eventos.index', compact('eventos'));
@@ -83,7 +84,7 @@ class EventoController extends Controller
         'user_id' => Auth::user()->id,
     ]);
 
-    return redirect()->route('welcome')->with('success', 'Evento creado exitosamente.');
+    return redirect()->route('eventos.index')->with('success', 'Evento creado exitosamente.');
 
     }
 
@@ -133,6 +134,11 @@ class EventoController extends Controller
         return redirect()->route('eventos.index')->with('success', 'Evento actualizado exitosamente');
     }
 
+    public function mostrarUnEvento($id)
+{
+    $evento = Evento::findOrFail($id); // Trae solo un evento
+    return view('eventos.index', compact('evento'));
+}
     /**
      * Remove the specified resource from storage.
      */
@@ -145,6 +151,35 @@ class EventoController extends Controller
     // Redirigir a la lista de eventos con un mensaje de éxito
     return redirect()->route('eventos.index')->with('success', 'Evento eliminado correctamente.');
     }
+
+    public function agregarModerador($eventoId)
+    {
+        $evento = Evento::findOrFail($eventoId);
+        $usuarios = User::whereDoesntHave('moderandoEventos', function ($query) use ($evento) {
+            $query->where('evento_id', $evento->ID_eventos);
+        })->get();
+
+        return view('usuarios.agregarModerador', compact('evento', 'usuarios'));
+    }
+
+    public function asignarModerador($eventoId, $usuarioId)
+    {
+        $evento = Evento::findOrFail($eventoId);
+        $usuario = User::findOrFail($usuarioId);
+
+        // Añadir al usuario como moderador del evento
+        $evento->moderadores()->attach($usuario);
+
+        return redirect()->route('welcome')->with('success', 'Moderador agregado correctamente.');
+    }
+
+    public function eventosModerados()
+    {
+        $usuario = Auth::user();
+        $eventos = $usuario->moderandoEventos;
     
+        return view('usuarios.evento', compact('eventos'));
+    }
+
 
 }
