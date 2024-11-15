@@ -15,6 +15,7 @@ class EventoController extends Controller
      */
     public function index()
     {
+
         $evento_user = Auth::user()->id;
 
         // Obtener los eventos del usuario
@@ -170,16 +171,17 @@ class EventoController extends Controller
         // Añadir al usuario como moderador del evento
         $evento->moderadores()->attach($usuario);
 
-        return redirect()->route('welcome')->with('success', 'Moderador agregado correctamente.');
+        return redirect()->route('eventos.index')->with('success', 'Moderador agregado correctamente.');
     }
 
     public function eventosModerados()
     {
+        
         $usuario = Auth::user();
-        $eventos = $usuario->moderandoEventos;
+        $eventos = $usuario->moderandoEventos;//se accede al modelo usuarios y se usa moderandoEventos donde se lo relaciona con el evento que le corresponde o asignaron
     
         return view('usuarios.evento', compact('eventos'));
     }
-
+ 
 
 }

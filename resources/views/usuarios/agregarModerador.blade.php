@@ -23,7 +23,7 @@
                         <td>{{ $usuario->name }}</td>
                         <td>{{ $usuario->email }}</td>
                         <td>
-                            <h1>Agregar Moderador al Evento: {{ $evento->nombre_evento }}</h1>
+                            
                             <ul>
                                 <form action="{{ route('moderador.agregar', ['eventoId' => $evento->ID_eventos, 'usuarioId' => $usuario->id]) }}" method="POST">
                                     @csrf

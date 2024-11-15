@@ -20,10 +20,10 @@ class Evento extends Model
     ];
     protected $table = 'eventos';
     public function moderadores()
-{
-    return $this->belongsToMany(User::class, 'evento_moderadores', 'evento_id', 'user_id')
-                ->withTimestamps();
-}
+    {
+        return $this->belongsToMany(User::class, 'evento_moderadores', 'evento_id', 'user_id')
+                    ->withTimestamps();
+    }
     // Relación uno a muchos inversa (cada evento pertenece a un usuario)
     public function user()
     {
