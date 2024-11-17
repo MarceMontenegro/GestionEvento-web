@@ -317,7 +317,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Crear evento',
-                    'url' => 'r',
+                    'url' => 'crear-evento',
                     'icon' => 'fa fa-plus-circle',
                 ],
                 
@@ -544,3 +544,5 @@ return [
 
     'livewire' => false,
 ];
+
+
