@@ -158,7 +158,8 @@ class EventoController extends Controller
         $evento = Evento::findOrFail($eventoId);
         $usuarios = User::whereDoesntHave('moderandoEventos', function ($query) use ($evento) {
             $query->where('evento_id', $evento->ID_eventos);
-        })->get();
+        })->where('id', '!=', Auth::user()->id)->get(); // Excluye al usuario actual
+        
 
         return view('usuarios.agregarModerador', compact('evento', 'usuarios'));
     }
