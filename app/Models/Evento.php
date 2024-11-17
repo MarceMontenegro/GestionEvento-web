@@ -13,6 +13,7 @@ class Evento extends Model
         'nombre_evento',
         'descripcion',
         'fecha_inicio',
+        'categoria',
         'ubicacion',
         'latitud',
         'longitud',

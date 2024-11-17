@@ -1,7 +1,10 @@
 @extends('adminlte::page')
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 @section('content')
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
 @if(session('success'))
 <script>
     Swal.fire({
@@ -13,18 +16,11 @@
 @endif
 
 <div class="container">
-    {{-- Botón adicional --}}
-
     
 
 
     <div class="d-flex justify-content-between align-items-center mb-4">
-        {{-- @foreach ($eventos as $evento)
-    <div class="d-flex justify-content-end mb-2">
-    </div>
-    <a href="{{ route('evento.agregarModerador', ['eventoId' => $evento->ID_eventos]) }}" class="btn btn-secondary btn-lg">Agregar moderador</a>
-    
-@endforeach --}}
+       
 @php
     $id=Auth::user()->id;
 @endphp
@@ -40,6 +36,20 @@
                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
               </svg>
         </a>
+        <div class="mb-3">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="filtroButton" data-bs-toggle="dropdown" aria-expanded="false">
+                Filtro
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="filtroButton">
+                <li><a class="dropdown-item" href="{{ route('eventos.filtro', ['categoria' => 'deportes']) }}">Deportes</a></li>
+                <li><a class="dropdown-item" href="{{ route('eventos.filtro', ['categoria' => 'fiestas']) }}">Fiestas</a></li>
+                <li><a class="dropdown-item" href="{{ route('eventos.filtro', ['categoria' => 'academicos']) }}">Académicos</a></li>
+                <li><a class="dropdown-item" href="{{ route('eventos.filtro', ['categoria' => 'negocios']) }}">Negocios</a></li>
+                <li><a class="dropdown-item" href="{{ route('eventos.index') }}">Todos</a></li> <!-- Opción para mostrar todos -->
+            </ul>
+        </div>
+        
+        
     </div>
         <table class="table table-striped">
             <thead>
@@ -48,6 +58,7 @@
                     <th>Descripción</th>
                     <th>Fecha de Inicio</th>
                     <th>Ubicación</th>
+                    <th>Categoría</th>
                     <th>Acciones</th>
                     <th>Participantes</th>
                 </tr>
@@ -59,6 +70,7 @@
                         <td>{{ $evento->descripcion }}</td>
                         <td>{{ $evento->fecha_inicio }}</td>
                         <td>{{ $evento->ubicacion }}</td>
+                        <td>{{ $evento->categoria }}</td>
                         <td>
                             {{-- boton invitar --}}
                             <a href="{{ route('invitaciones.invitar', $evento->ID_eventos) }}" class="btn btn-primary" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-add" viewBox="0 0 16 16">
@@ -161,7 +173,9 @@
     </footer>
 @stop
 @section('cs')
-<style>
-    
-</style>
+
+@stop
+@section('js')
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
 @stop

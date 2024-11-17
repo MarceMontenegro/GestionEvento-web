@@ -13,15 +13,18 @@ class EventoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request, $categoria = null)
     {
+        if ($categoria) {
+            $eventos = Evento::where('categoria', $categoria)->get();
+        } else {
+            // Si no se pasa una categoría, mostramos todos los eventos
+            $eventos = Evento::all();
+        }
 
         $evento_user = Auth::user()->id;
 
-        // Obtener los eventos del usuario
-        $eventos = Evento::where('user_id', $evento_user)->get();
-
-        // Para cada evento, obtenemos los participantes clasificados por su estado
+    
         foreach ($eventos as $evento) {
             $evento->participantes_aceptados = Invitaciones::where('ID_eventos', $evento->ID_eventos)
                 ->where('estado', 1) // Estado 1 = aceptado
@@ -49,45 +52,43 @@ class EventoController extends Controller
         return view('eventos.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    
+
     public function store(Request $request)
-    {
-       //verificacion de datos
-        // $datos = $request->all();
-        // return response()->json($datos);
-       // Validar la solicitud
-       $request->validate([
-        'nombre_evento' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/', 'max:255'],  // Solo permite letras y espacios
+{
+    
+    // Validación
+    $request->validate([
+        'nombre_evento' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/', 'max:255'],
         'descripcion' => ['required', 'string', 'regex:/^[a-zA-Z\s]+$/', 'max:500'],
         'fecha_inicio' => ['required', 'date'],
         'ubicacion' => ['required', 'string'],
         'latitud' => ['required', 'numeric'],
         'longitud' => ['required', 'numeric'],
-    ], 
-    [
-        'nombre_evento.regex' => 'Formato no válido. El nombre solo debe contener letras y espacios.',
-        'descripcion.regex' => 'Formato no válido. la descripcion solo debe contener letras y espacios.',
-        'nombre_evento.regex' => 'Formato no válido. El nombre solo debe contener letras y espacios.',
-        'nombre_evento.regex' => 'Formato no válido. El nombre solo debe contener letras y espacios.',
-        'nombre_evento.regex' => 'Formato no válido. El nombre solo debe contener letras y espacios.',
+        'categoria' => ['required', 'in:deportes,fiestas,negocios,academicos'],  // Validación estricta para categoría
+    ], [
+        'categoria.required' => 'Por favor, selecciona una categoría.',  // Error si no se selecciona
+        'categoria.in' => 'La categoría seleccionada no es válida.',  // Error si el valor no es válido
     ]);
-    
-    // Crear un nuevo evento
+
+    // Crear el evento
     Evento::create([
         'nombre_evento' => $request->nombre_evento,
         'descripcion' => $request->descripcion,
         'fecha_inicio' => $request->fecha_inicio,
+        'categoria' => $request->categoria,
         'ubicacion' => $request->ubicacion,
         'latitud' => $request->latitud,
         'longitud' => $request->longitud,
+         // Aseguramos que se guarde el valor seleccionado
         'user_id' => Auth::user()->id,
     ]);
 
     return redirect()->route('eventos.index')->with('success', 'Evento creado exitosamente.');
+}
 
-    }
+
+
 
     /**
      * Display the specified resource.

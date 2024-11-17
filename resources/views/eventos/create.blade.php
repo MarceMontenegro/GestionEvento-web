@@ -33,38 +33,47 @@
                                 <input type="text" name="nombre_evento" class="form-control" value="{{ old('nombre_evento') }}" required>
                                 @error('nombre_evento')
                                     <span class="text-danger">{{ $message }}</span>
-                                    <script>
-                                        document.querySelector('input[name="nombre_evento"]').value = ''; // Vacía el campo si hay error
-                                    </script>
                                 @enderror
                             </div>
                         </div>
+                
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="descripcion">Descripción</label>
                                 <input type="text" name="descripcion" class="form-control" value="{{ old('descripcion') }}" required>
                                 @error('descripcion')
                                     <span class="text-danger">{{ $message }}</span>
-                                    <script>
-                                        document.querySelector('input[name="descripcion"]').value = ''; // Vacía el campo si hay error
-                                    </script>
                                 @enderror
                             </div>
                         </div>
+                
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="fecha_inicio">Fecha de inicio</label>
                                 <input type="date" name="fecha_inicio" class="form-control" value="{{ old('fecha_inicio') }}" required>
                                 @error('fecha_inicio')
                                     <span class="text-danger">{{ $message }}</span>
-                                    <script>
-                                        document.querySelector('input[name="fecha_inicio"]').value = ''; // Vacía el campo si hay error
-                                    </script>
+                                @enderror
+                            </div>
+                        </div>
+                
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="categoria">Categoría</label>
+                                <select name="categoria" class="form-control" required>
+                                    <option value="">Seleccionar categoría</option> <!-- Asegúrate de que la opción vacía esté presente -->
+                                    <option value="deportes" {{ old('categoria') == 'deportes' ? 'selected' : '' }}>Deportes</option>
+                                    <option value="fiestas" {{ old('categoria') == 'fiestas' ? 'selected' : '' }}>Fiestas</option>
+                                    <option value="negocios" {{ old('categoria') == 'negocios' ? 'selected' : '' }}>Negocios</option>
+                                    <option value="academicos" {{ old('categoria') == 'academicos' ? 'selected' : '' }}>Académicos</option>
+                                </select>
+                                @error('categoria')
+                                    <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
                     </div>
-                    
+                
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -77,9 +86,6 @@
                             </div>
                             @error('ubicacion')
                                 <span class="text-danger">{{ $message }}</span>
-                                <script>
-                                    document.querySelector('input[name="ubicacion"]').value = ''; // Vacía el campo si hay error
-                                </script>
                             @enderror
                         </div>
                     </div>
@@ -92,8 +98,8 @@
                             <button type="submit" class="btn-lg btn-primary btn-block">Crear evento</button>
                         </div>
                     </div>
-                    
                 </form>
+                
                 
             </div>
 <br>

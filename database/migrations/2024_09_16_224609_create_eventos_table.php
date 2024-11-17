@@ -28,6 +28,10 @@ return new class extends Migration
                   ->onDelete('no action')
                   ->onUpdate('cascade');
 
+            // Campo para las categorías con tipo ENUM sin valor por defecto
+            $table->enum('categoria', ['deportes', 'fiestas', 'negocios', 'academicos'])
+                  ->notNullable();  // No permite valores nulos
+
             $table->timestamps();
         });
     }

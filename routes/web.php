@@ -36,6 +36,8 @@ Route::get('/eventos/{ID_eventos}', [EventoController::class, 'show'])->name('ev
 Route::get('/evento/{eventoId}/agregar-moderador', [EventoController::class, 'agregarModerador'])->name('evento.agregarModerador');
 Route::post('/evento/{eventoId}/agregar-moderador/{usuarioId}', [EventoController::class, 'asignarModerador'])->name('moderador.agregar');
 Route::get('/evento/{usuario_id}', [EventoController::class, 'eventosModerados'])->name('usuario.evento');
+// filtros
+Route::get('/eventos/categoria/{categoria}', [EventoController::class, 'index'])->name('eventos.filtro');
 
 
 });
