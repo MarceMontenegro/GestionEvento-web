@@ -14,12 +14,28 @@ class InvitacionesController extends Controller
     /**
      * Mostrar la vista para invitar usuarios a un evento.
      */
+    // public function invitar($ID_eventos)
+    // {
+    //     $evento = Evento::find($ID_eventos);
+    //     // Obtener los usuarios que no son el actual para invitar
+    //     $usuarios = User::where('id', '!=', Auth::user()->id)->where('id', '!=', $evento->user_id)    
+    //     ->get();
+
+    //     return view('invitaciones.invitar', compact('evento', 'usuarios'));
+    // }
+   
     public function invitar($ID_eventos)
     {
-        $evento = Evento::find($ID_eventos);
-        // Obtener los usuarios que no son el actual para invitar
-        $usuarios = User::where('id', '!=', Auth::user()->id)->get();
-
+        $evento = Evento::findOrFail($ID_eventos);
+    
+        // Obtener usuarios que no sean el actual, el creador del evento, ni los ya invitados
+        $usuarios = User::where('id', '!=', Auth::id()) // Excluir usuario actual
+            ->where('id', '!=', $evento->user_id)      // Excluir creador del evento
+            ->whereDoesntHave('invitaciones', function ($query) use ($evento) {
+                $query->where('ID_eventos', $evento->ID_eventos); // Excluir cualquier invitación para este evento
+            })
+            ->get();
+    
         return view('invitaciones.invitar', compact('evento', 'usuarios'));
     }
 
