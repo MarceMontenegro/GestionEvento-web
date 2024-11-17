@@ -16,10 +16,7 @@ class User extends Authenticatable
     return $this->belongsToMany(Evento::class, 'evento_moderadores', 'user_id', 'evento_id')
                 ->withTimestamps();
 }
-public function invitaciones()
-{
-    return $this->hasMany(Invitaciones::class, 'user_id', 'id');
-}
+    
     // Relación uno a muchos con eventos
     public function eventos()
     {
