@@ -13,36 +13,71 @@ class EventoController extends Controller
     /**
      * Display a listing of the resource.
      */
+    // public function index(Request $request, $categoria = null)
+    // {
+    //     if ($categoria) {
+    //         $eventos = Evento::where('categoria', $categoria)->get();
+    //     } else {
+    //         // Si no se pasa una categoría, mostramos todos los eventos
+    //         $eventos = Evento::all();
+    //     }
+
+    //     $evento_user = Auth::user()->id;
+
+    
+    //     foreach ($eventos as $evento) {
+    //         $evento->participantes_aceptados = Invitaciones::where('ID_eventos', $evento->ID_eventos)
+    //             ->where('estado', 1) // Estado 1 = aceptado
+    //             ->with('usuario')
+    //             ->get();
+    //         $evento->participantes_rechazados = Invitaciones::where('ID_eventos', $evento->ID_eventos)
+    //             ->where('estado', 2) // Estado 2 = rechazado
+    //             ->with('usuario')
+    //             ->get();
+    //         $evento->participantes_pendientes = Invitaciones::where('ID_eventos', $evento->ID_eventos)
+    //             ->where('estado', 0) // Estado 0 = pendiente
+    //             ->with('usuario')
+    //             ->get();
+            
+    //     }
+
+    //     return view('eventos.index', compact('eventos'));
+    // }
+
     public function index(Request $request, $categoria = null)
     {
+        $perPage = 5; // Número de eventos por página
+
         if ($categoria) {
-            $eventos = Evento::where('categoria', $categoria)->get();
+            $eventos = Evento::where('categoria', $categoria)->paginate($perPage);
         } else {
-            // Si no se pasa una categoría, mostramos todos los eventos
-            $eventos = Evento::all();
+            // Aplicar paginación a todos los eventos
+            $eventos = Evento::paginate($perPage);
         }
 
         $evento_user = Auth::user()->id;
 
-    
         foreach ($eventos as $evento) {
             $evento->participantes_aceptados = Invitaciones::where('ID_eventos', $evento->ID_eventos)
-                ->where('estado', 1) // Estado 1 = aceptado
+                ->where('estado', 1) 
                 ->with('usuario')
                 ->get();
+
             $evento->participantes_rechazados = Invitaciones::where('ID_eventos', $evento->ID_eventos)
-                ->where('estado', 2) // Estado 2 = rechazado
+                ->where('estado', 2) 
                 ->with('usuario')
                 ->get();
+
             $evento->participantes_pendientes = Invitaciones::where('ID_eventos', $evento->ID_eventos)
-                ->where('estado', 0) // Estado 0 = pendiente
+                ->where('estado', 0) 
                 ->with('usuario')
                 ->get();
-            
         }
 
+        // Retornar la vista con los eventos paginados
         return view('eventos.index', compact('eventos'));
     }
+
 
     /**
      * Show the form for creating a new resource.

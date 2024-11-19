@@ -156,14 +156,17 @@
                 @endforeach
             </tbody>
         </table>
-
+        
+    <div class="d-flex justify-content-center mt-4">
+        {{ $eventos->links('pagination::bootstrap-5') }}
+    </div>
         @if ($eventos->isEmpty())
             <h2>
                 <b>No tienes eventos registrados.</b>
             </h2>
         @endif
     </div>
-@endsection
+@stop
 @section('footer')
     <footer class="main-footer">
         <strong>&copy; 2024 Gestión de eventos</strong>
