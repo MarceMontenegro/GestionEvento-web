@@ -24,11 +24,15 @@
                         <td>{{ $usuario->email }}</td>
                         <td>
                             
-                            <ul>
-                                <form action="{{ route('moderador.agregar', ['eventoId' => $evento->ID_eventos, 'usuarioId' => $usuario->id]) }}" method="POST">
-                                    @csrf
-                                    <button type="submit">Agregar como Moderador</button>
-                                </form>
+                            <ul class="list-unstyled">
+                                <li>
+                                    <form action="{{ route('moderador.agregar', ['eventoId' => $evento->ID_eventos, 'usuarioId' => $usuario->id]) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            <i class="bi bi-person-plus"></i> Agregar como Moderador
+                                        </button>
+                                    </form>
+                                </li>
                             </ul>
                         </td>
                     </tr>

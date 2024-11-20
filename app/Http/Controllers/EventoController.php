@@ -47,36 +47,43 @@ class EventoController extends Controller
     public function index(Request $request, $categoria = null)
     {
         $perPage = 5; // Número de eventos por página
-
-        if ($categoria) {
-            $eventos = Evento::where('categoria', $categoria)->paginate($perPage);
-        } else {
-            // Aplicar paginación a todos los eventos
-            $eventos = Evento::paginate($perPage);
-        }
-
+    
+        // Obtener el ID del usuario autenticado
         $evento_user = Auth::user()->id;
-
+    
+        // Consultar eventos del usuario autenticado
+        if ($categoria) {
+            $eventos = Evento::where('user_id', $evento_user) // Filtrar por usuario
+                ->where('categoria', $categoria)
+                ->paginate($perPage);
+        } else {
+            // Filtrar por usuario autenticado sin categoría
+            $eventos = Evento::where('user_id', $evento_user)
+                ->paginate($perPage);
+        }
+    
+        // Iterar sobre los eventos para agregar los participantes
         foreach ($eventos as $evento) {
             $evento->participantes_aceptados = Invitaciones::where('ID_eventos', $evento->ID_eventos)
                 ->where('estado', 1) 
-                ->with('usuario')
+                ->with('usuario') 
                 ->get();
-
+    
             $evento->participantes_rechazados = Invitaciones::where('ID_eventos', $evento->ID_eventos)
-                ->where('estado', 2) 
+                ->where('estado', 2)
                 ->with('usuario')
                 ->get();
-
+    
             $evento->participantes_pendientes = Invitaciones::where('ID_eventos', $evento->ID_eventos)
-                ->where('estado', 0) 
+                ->where('estado', 0)
                 ->with('usuario')
                 ->get();
         }
-
+    
         // Retornar la vista con los eventos paginados
         return view('eventos.index', compact('eventos'));
     }
+    
 
 
     /**
