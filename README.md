@@ -31,19 +31,19 @@ If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Lar
 
 ## Pasos para instalar en entorno local:
 
-Clonar el repositorio: git clone <url-del-repositorio> y acceder a la carpeta del proyecto: cd <carpeta-del-proyecto>.
-Instalar las dependencias de PHP con: **composer install**.
-Instalar las dependencias de JavaScript con **npm install**.
-Generar la clave de la aplicación con php artisan **key:generate**.
-Configurar las variables de entorno duplicando el archivo .env.example, renombrándolo a .env y ajustando los datos de la base de datos:
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=nombre_de_tu_base_de_datos
-DB_USERNAME=tu_usuario
-DB_PASSWORD=tu_contraseña
-Ejecutar las migraciones con **php artisan migrate**.
-Iniciar el servidor de desarrollo con **php artisan serve**.
+- Clonar el repositorio: git clone <url-del-repositorio> y acceder a la carpeta del proyecto: cd <carpeta-del-proyecto>.
+- Instalar las dependencias de PHP con: **composer install**.
+- Instalar las dependencias de JavaScript con **npm install**.
+- Generar la clave de la aplicación con php artisan **key:generate**.
+- Configurar las variables de entorno duplicando el archivo .env.example, renombrándolo a .env y ajustando los datos de la base de datos:
+- DB_CONNECTION=mysql
+- DB_HOST=127.0.0.1
+- DB_PORT=3306
+- DB_DATABASE=nombre_de_tu_base_de_datos
+- DB_USERNAME=tu_usuario
+- DB_PASSWORD=tu_contraseña
+- Ejecutar las migraciones con **php artisan migrate**.
+- Iniciar el servidor de desarrollo con **php artisan serve**.
 
 
 ## Laravel Sponsors
