@@ -29,6 +29,23 @@ You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you
 
 If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
+## Pasos para instalar en entorno local:
+
+Clonar el repositorio: git clone <url-del-repositorio> y acceder a la carpeta del proyecto: cd <carpeta-del-proyecto>.
+Instalar las dependencias de PHP con: **composer install**.
+Instalar las dependencias de JavaScript con **npm install**.
+Generar la clave de la aplicación con php artisan **key:generate**.
+Configurar las variables de entorno duplicando el archivo .env.example, renombrándolo a .env y ajustando los datos de la base de datos:
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nombre_de_tu_base_de_datos
+DB_USERNAME=tu_usuario
+DB_PASSWORD=tu_contraseña
+Ejecutar las migraciones con **php artisan migrate**.
+Iniciar el servidor de desarrollo con **php artisan serve**.
+
+
 ## Laravel Sponsors
 
 We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
